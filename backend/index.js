@@ -2,6 +2,7 @@ require("dotenv").config()
 const express = require("express");
 const cors = require('cors');
 const connectDb = require("./db/connect");
+const router = require("./router/router");
 
 
 const app = express();
@@ -16,6 +17,10 @@ app.get('/' , (req , res) => {
         msg :'hello from server'
     })
 })
+
+/** they are same api routs */
+
+app.use('/api' , router)
 
 const start = async () => {
     try {
