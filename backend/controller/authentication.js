@@ -1,5 +1,5 @@
 const userAccSchema = require("../model/userInfo.modle");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken")
 
 const signUp = async (req , res) => {
