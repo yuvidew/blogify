@@ -10,9 +10,7 @@ const blogSchema = new mongoose.Schema({
     category : {
         type : String,
     },
-    description : {
-        type :String,
-    },
+    description : String,
     like : {
         type :Number,
     },

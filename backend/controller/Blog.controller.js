@@ -8,7 +8,8 @@ const createBlog = async(req , res) => {
         const result = await BlogsSchema.create({
             title : title,
             category : category,
-            userId : id
+            userId : id,
+            description : "test"
         })
         const userResult = await userAccSchema.findById(id)
         userResult.blogs.push({
@@ -23,7 +24,7 @@ const createBlog = async(req , res) => {
 }
 
 
-const getBlogs = async (req , res) => {
+const getBlogsByUserId = async (req , res) => {
     const {userId} = req.params;
 
     const result = await BlogsSchema.find({
@@ -32,9 +33,21 @@ const getBlogs = async (req , res) => {
     return res.status(200).json(result)
 }
 
-const deleteBlog = async (req , res) => {
+
+const getUpdateBlogById = async (req , res) => {
     const {id} = req.params;
-    const result = await BlogsSchema.deleteOne(id)
+    const result = await BlogsSchema.findByIdAndUpdate(id ,  req.body , {new : true})
+    return res.status(200).json(result)
+}
+
+const getBlogById = async (req , res) => {
+    const {id} = req.params;
+    const result = await BlogsSchema.findById(id)
+    return res.status(200).json(result)
+}
+const deleteBlog = async (req , res) => {
+    const {userId} = req.params;
+    const result = await BlogsSchema.deleteOne(userId)
     return res.status(201).json({
         msg : "Blog is successfully deleted!"
     })
@@ -42,6 +55,8 @@ const deleteBlog = async (req , res) => {
 
 module.exports = {
     createBlog,
-    getBlogs,
-    deleteBlog
+    getBlogsByUserId,
+    deleteBlog,
+    getBlogById,
+    getUpdateBlogById
 }

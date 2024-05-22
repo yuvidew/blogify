@@ -1,6 +1,6 @@
 const express = require('express')
 const { signUp, signIn } = require('../controller/authentication')
-const { getBlogs , createBlog, deleteBlog } = require('../controller/Blog.controller')
+const { getBlogsByUserId , createBlog, deleteBlog, getUpdateBlogById, getBlogById } = require('../controller/Blog.controller')
 const router = express.Router()
 
 /** they two routes for user sign in and sign up  */
@@ -11,8 +11,11 @@ router.post('/post/signin' , signIn)
 /**this routes for create and get the blogs of users */
 
 router.post('/post/createBlog' , createBlog)
-router.get('/get/blogs/:userId' , getBlogs)
+router.get('/get/blogs/:userId' , getBlogsByUserId)
 router.delete('/delete/blogs/:userId' , deleteBlog)
+router.get('/get/blog/:id' , getBlogById)
+router.patch("/patch/blog/:id" ,getUpdateBlogById)
+
 
 
 module.exports = router
