@@ -9,7 +9,19 @@ const createBlog = async(req , res) => {
             title : title,
             category : category,
             userId : id,
-            description : JSON.stringify("{}")
+            description : JSON.stringify(
+                [{
+                    id: "f42e30b0-7d98-4fe8-bac8-6a5dc24a9fbc",
+                    type: "paragraph",
+                    props: {
+                        textColor: "default",
+                        backgroundColor: "default",
+                        textAlignment: "left"
+                    },
+                    content: [],
+                    children: []
+                }]
+            ) 
         })
         const userResult = await userAccSchema.findById(id)
         userResult.blogs.push({
@@ -51,7 +63,8 @@ const deleteBlog = async (req , res) => {
         userId : userId
     })
     return res.status(201).json({
-        msg : "Blog is successfully deleted!"
+        msg : "Blog is successfully deleted!",
+        ans : result
     })
 }
 
