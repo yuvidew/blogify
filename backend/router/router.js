@@ -12,7 +12,7 @@ router.post('/post/signin' , signIn)
 
 router.post('/post/createBlog' , createBlog)
 router.get('/get/blogs/:userId' , getBlogsByUserId)
-router.delete('/delete/blogs/:userId' , deleteBlog)
+router.delete('/delete/blogs/:id' , deleteBlog)
 router.get('/get/blog/:id' , getBlogById)
 router.patch("/patch/blog/:id" ,getUpdateBlogById)
 

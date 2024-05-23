@@ -46,9 +46,9 @@ const getBlogById = async (req , res) => {
     return res.status(200).json(result)
 }
 const deleteBlog = async (req , res) => {
-    const {userId} = req.params;
+    const {id} = req.params;
     console.log(userId);
-    const result = await BlogsSchema.deleteOne(userId)
+    const result = await BlogsSchema.deleteOne(id)
     return res.status(201).json({
         msg : "Blog is successfully deleted!"
     })
