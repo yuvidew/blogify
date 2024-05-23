@@ -9,7 +9,7 @@ const createBlog = async(req , res) => {
             title : title,
             category : category,
             userId : id,
-            description : "test"
+            description : JSON.stringify("{}")
         })
         const userResult = await userAccSchema.findById(id)
         userResult.blogs.push({
@@ -47,6 +47,7 @@ const getBlogById = async (req , res) => {
 }
 const deleteBlog = async (req , res) => {
     const {userId} = req.params;
+    console.log(userId);
     const result = await BlogsSchema.deleteOne(userId)
     return res.status(201).json({
         msg : "Blog is successfully deleted!"
