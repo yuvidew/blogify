@@ -9,6 +9,7 @@ const createBlog = async(req , res) => {
             title : title,
             category : category,
             userId : id,
+            date : new Date(),
             description : JSON.stringify(
                 [{
                     id: "f42e30b0-7d98-4fe8-bac8-6a5dc24a9fbc",
@@ -68,10 +69,17 @@ const deleteBlog = async (req , res) => {
     })
 }
 
+const getBlog = async (req , res) => {
+    const result = await BlogsSchema.find()
+
+    return res.status(200).json(result)
+}
+
 module.exports = {
     createBlog,
     getBlogsByUserId,
     deleteBlog,
     getBlogById,
-    getUpdateBlogById
+    getUpdateBlogById,
+    getBlog
 }

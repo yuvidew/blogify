@@ -54,8 +54,15 @@ const signIn = async (req , res) => {
     }
 }
 
+const getFindUser = async (req , res) => {
+    const {id} = req.params;
+    const result = await userAccSchema.findById(id)
+    return res.status(200).json(result)
+}
+
 
 module.exports = {
     signUp,
-    signIn
+    signIn,
+    getFindUser
 }
