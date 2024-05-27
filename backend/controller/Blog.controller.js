@@ -10,6 +10,8 @@ const createBlog = async(req , res) => {
             category : category,
             userId : id,
             date : new Date(),
+            like : 0,
+            dislike : 0,
             description : JSON.stringify(
                 [{
                     id: "f42e30b0-7d98-4fe8-bac8-6a5dc24a9fbc",
@@ -70,9 +72,37 @@ const deleteBlog = async (req , res) => {
 }
 
 const getBlog = async (req , res) => {
-    const result = await BlogsSchema.find()
-
+    const {category} = req.query;
+    let result ;
+    if(!category){
+        result = await BlogsSchema.find()
+    }else{
+        result = await BlogsSchema.find({category})
+    }
     return res.status(200).json(result)
+    
+}
+
+const getBlogLikeDisLike = async (req , res) => {
+    const {id} = req.params;
+    const {opinion} = req.body;
+    console.log("object" , id , opinion);
+    const result = await BlogsSchema.findById(id)
+
+    console.log(result.like);
+
+    if(opinion == "+1"){
+        result.like += 1
+    }else{
+        result.dislike += 1
+        result.like -= 1
+    }
+
+    result.save()
+
+    return res.status(201).json(result)
+
+
 }
 
 module.exports = {
@@ -81,5 +111,6 @@ module.exports = {
     deleteBlog,
     getBlogById,
     getUpdateBlogById,
-    getBlog
+    getBlog,
+    getBlogLikeDisLike
 }
