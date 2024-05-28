@@ -89,20 +89,36 @@ const getBlogLikeDisLike = async (req , res) => {
     console.log("object" , id , opinion);
     const result = await BlogsSchema.findById(id)
 
-    console.log(result.like);
-
     if(opinion == "+1"){
         result.like += 1
-    }else{
+    }else if(opinion = "-1"){
         result.dislike += 1
         result.like -= 1
     }
 
     result.save()
 
+    return res.status(201).json({
+        msg : 'You like this blog'
+    })
+}
+
+const addCommitPost = async (req , res) => {
+    const {id} = req.params;
+
+    const result = await BlogsSchema.findById(id);
+    
+    console.log(id , req.body);
+    result.comment.push(req.body);
+    result.save();
+
     return res.status(201).json(result)
+}
 
-
+const getCommit = async (req , res) => {
+    const {id} = req.params;
+    const result = await BlogsSchema.findById(id)
+    return res.status(200).json(result.comment)
 }
 
 module.exports = {
@@ -112,5 +128,7 @@ module.exports = {
     getBlogById,
     getUpdateBlogById,
     getBlog,
-    getBlogLikeDisLike
+    getBlogLikeDisLike,
+    addCommitPost , 
+    getCommit
 }

@@ -19,6 +19,7 @@ const blogSchema = new mongoose.Schema({
     },
     comment : [{
         email : String,
+        name : String,
         text : String,
     }],
     userId : {
